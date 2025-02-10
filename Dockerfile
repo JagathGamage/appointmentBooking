@@ -1,7 +1,7 @@
 # 🏗️ Build Stage: Use Maven to compile the Spring Boot application
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
-
+#
 # Copy source code
 COPY . .
 
