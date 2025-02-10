@@ -63,7 +63,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // ✅ Load allowed origins from environment variables for security
-        configuration.setAllowedOrigins(List.of(System.getenv("ALLOWED_ORIGIN") != null ? System.getenv("ALLOWED_ORIGIN") : "http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of(System.getenv("ALLOWED_ORIGIN") != null ? System.getenv("ALLOWED_ORIGIN") : "https://appointmentbooking-frontend.vercel.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
