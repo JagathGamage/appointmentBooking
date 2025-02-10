@@ -1,5 +1,6 @@
 # Use Maven to build the JAR inside the container
-FROM maven:3.8.7-openjdk-17 AS builder
+# FROM maven:3.8.7-openjdk-17 AS builder
+FROM eclipse-temurin:17-jdk AS builder 
 
 WORKDIR /app
 
