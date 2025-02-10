@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/appointments")
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend requests
+@CrossOrigin(origins = "https://appointmentbooking-frontend.vercel.app") // Allow frontend requests
 public class AppointmentController {
 
     @Autowired
