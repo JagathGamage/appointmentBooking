@@ -1,5 +1,7 @@
 # Use a valid Maven image to build the JAR
-FROM maven:3.8.8-eclipse-temurin-17 AS builder
+# FROM maven:3.8.8-eclipse-temurin-17 AS builder
+FROM maven:3.8.7-amazoncorretto-17 AS builder
+
 
 WORKDIR /app
 COPY . .
