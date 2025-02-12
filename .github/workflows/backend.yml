@@ -1,29 +1,32 @@
-name: Deploy Backend to Railway
+name: Deploy Spring Boot App to Fly.io
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
+      - name: 🛎️ Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set Up JDK
+      - name: 🏗️ Set Up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build with Maven
-        run: |
-          cd backend
-          mvn clean package -DskipTests
+      - name: 🚀 Build JAR with Maven
+        run: mvn clean package -DskipTests
 
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          railway up --service backend
+      - name: 📦 Install Fly.io CLI
+        run: curl -L https://fly.io/install.sh | sh
+
+      - name: 🔑 Authenticate with Fly.io
+        run: flyctl auth token ${{ secrets.FLY_API_TOKEN }}
+
+      - name: 🚀 Deploy to Fly.io
+        run: flyctl deploy --remote-only
