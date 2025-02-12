@@ -1,122 +1,121 @@
-# 🏥 Appointment Booking App
+🚀 Features
+🔹 User Features
+✔ User Registration & Login – Secure authentication with JWT.
+✔ View Available Time Slots – See free slots in the system.
+✔ Book Appointments – Select a preferred time slot and fill out a form to confirm booking.
+✔ Manage Appointments – View and cancel booked appointments.
+🔹 Admin Features
+✔ View All Appointments – See details of all scheduled appointments.
+✔ Add New Appointments – Create appointment slots manually.
+✔ Manage Bookings – Modify or delete appointments.
+🔹 Security Features
+✔ JWT-Based Authentication – Secure login with JSON Web Token.
+✔ Role-Based Access Control – Different access levels for users and admins.
+✔ Password Encryption – Secure password storage using BCrypt.
+🔹 CI/CD & Deployment
+✔ Automated CI/CD Pipeline – Ensures seamless deployment.
+✔ Frontend on Vercel – React UI hosted on Vercel.
+✔ Backend on Fly.io – Spring Boot backend deployed on Fly.io.
+✔ Database on Railway – MySQL database hosted on Railway.
 
-An appointment booking system built with **Spring Boot (Backend)** and **React (Frontend)**. This app allows users to view available slots, book appointments, and manage their appointments.
+🛠️ Tools & Technologies Used
+🌐 Frontend (React)
+React.js – UI development.
+Axios – API calls.
+React Router – Page navigation.
+Material-UI (MUI) – UI components.
+🖥 Backend (Spring Boot)
+Spring Boot – Backend framework.
+Spring Security – Authentication & authorization.
+Spring Data JPA – Database interaction.
+JWT (JSON Web Token) – Secure authentication.
+💾 Database
+MySQL – Relational database for appointment storage.
+Hibernate – ORM for database operations.
+☁️ Deployment & DevOps
+Fly.io – Backend hosting.
+Vercel – Frontend hosting.
+Railway – MySQL database hosting.
+Docker – Containerization for local testing.
+GitHub Actions – CI/CD automation.
 
----
+1️⃣ Set Up MySQL Database Locally
+Step 1: Install MySQL (If Not Installed)
+Download and install MySQL from MySQL official website.
+Alternatively, you can use XAMPP or Docker to run MySQL.
+Step 2: Start MySQL Server
+Ensure MySQL is running using:
+mysql -u root -p
 
-## 📌 Features
+Enter your MySQL root password when prompted.
+Step 3: Create the Database
+Run the following SQL commands in MySQL:
+sql
+CopyEdit
+CREATE DATABASE appointment_booking;
+USE appointment_booking;
 
-- **User Authentication**: Users can log in to book and manage appointments.
-- **View Available Slots**: Users can browse and select from available appointment slots.
-- **Book Appointments**: Users can book an appointment by providing their name and email.
-- **Manage Appointments**: Users can view and cancel their scheduled appointments.
-- **Admin Dashboard**: Admins can add, edit, and delete appointment slots.
-- **Secure API**: Uses **JWT authentication** for secure access.
-- **Responsive UI**: Built with **Material-UI** for a modern and user-friendly experience.
+Step 4: Configure MySQL Connection in Spring Boot
+Edit the application.properties file in the Spring Boot backend:
+For application.properties
 
----
-
-## 🛠️ Tech Stack
-
-### **Frontend**
-- **React.js** (JavaScript framework)
-- **Material-UI** (UI Components)
-- **Axios** (API requests)
-- **React Router** (Navigation)
-
-### **Backend**
-- **Spring Boot** (Java Framework)
-- **Spring Security** (Authentication & JWT)
-- **Spring Data JPA** (Database access)
-- **H2 / MySQL** (Database)
-- **Lombok** (Reduces boilerplate code)
-
----
-
-## 🚀 Setup Instructions
-
-### **Backend (Spring Boot) Setup**
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/your-repo/appointment-booking.git
-   cd appointment-booking/backend
-Set up the database:
-
-If using H2 Database (default): No extra setup needed.
-If using MySQL:
-Create a database named appointments
-Update application.properties:
-properties
-Copy
-Edit
-spring.datasource.url=jdbc:mysql://localhost:3306/appointments
+spring.datasource.url=jdbc:mysql://localhost:3306/appointment_booking
 spring.datasource.username=root
-spring.datasource.password=yourpassword
-Run the backend server:
+spring.datasource.password=your_password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-sh
-Copy
-Edit
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update
+
+Replace your_password with your actual MySQL password.
+
+2️⃣ Run the Spring Boot Backend Locally
+Step 1: Install Dependencies
+Ensure you have Java 17+ and Maven installed.
+Check Java version:
+java -version
+
+Check Maven version:
+mvn -version
+
+Step 2: Run the Spring Boot Application
+Navigate to the backend project folder:
+
+cd appointmentBooking
+Run the application using:
 mvn spring-boot:run
-The backend API will be available at: http://localhost:8080
 
-Frontend (React) Setup
-Navigate to the frontend directory:
+or
+mvnw.cmd spring-boot:run # For Windows
 
-sh
-Copy
-Edit
-cd ../frontend
+The backend should now be running at http://localhost:8080.
+
+3️⃣ Run the React Frontend Locally
+Step 1: Install Node.js & npm (If Not Installed)
+Download and install Node.js from Node.js official website.
+Check installation:
+node -v
+npm -v
+Step 2: Install Dependencies
+Navigate to the frontend folder:
+cd appointmentBooking
+
 Install dependencies:
-
-sh
-Copy
-Edit
 npm install
-Start the React app:
 
-sh
-Copy
-Edit
+Step 3: Configure API Base URL
+Open src/.env and update it to match the local backend:
+REACT_APP_BACKEND_URL = "http://localhost:8080";
+
+Step 4: Start the React App
+Run:
 npm start
-The frontend will be available at: http://localhost:3000
+The frontend should now be running at http://localhost:3000.
 
-🔗 API Endpoints
-Authentication
-POST /api/auth/login – User login
-POST /api/auth/register – User registration
-Appointments
-GET /api/appointments/available – Fetch available slots
-POST /api/appointments/book – Book an appointment
-GET /api/appointments/user/{email} – Fetch user’s appointments
-POST /api/appointments/cancel/{id} – Cancel an appointment
-Admin
-POST /api/admin/appointments/add – Add a new slot
-PUT /api/admin/appointments/edit/{id} – Edit an appointment slot
-DELETE /api/admin/appointments/delete/{id} – Delete an appointment slot
-🏃‍♂️ Running with Docker (Optional)
-Build the backend Docker image:
-
-sh
-Copy
-Edit
-docker build -t appointment-backend .
-Run the backend container:
-
-sh
-Copy
-Edit
-docker run -p 8080:8080 appointment-backend
-Run the frontend with Docker Compose:
-
-sh
-Copy
-Edit
-docker-compose up --build
-📝 Future Improvements
-Email notifications for bookings.
-Payment integration for paid appointments.
-Calendar view for better scheduling.
-📄 License
-This project is open-source and available under the MIT License.
+4️⃣ Test the Application Locally
+Open MySQL and verify that the database is running.
+Start the Spring Boot backend (http://localhost:8080).
+Start the React frontend (http://localhost:3000).
+Open your browser and access the frontend.
+Login/Register as a User or Admin and test booking, cancellation, and admin management features.
 
