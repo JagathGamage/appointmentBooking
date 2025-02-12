@@ -1,37 +1,29 @@
-name: Backend CI/CD
+name: Deploy Backend to Railway
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set Up JDK
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Build with Maven
-      run: |
-        cd backend
-        mvn clean package -DskipTests
+      - name: Build with Maven
+        run: |
+          cd backend
+          mvn clean package -DskipTests
 
-    - name: Docker Build & Push to DockerHub
-      run: |
-        cd backend
-        docker build -t your-dockerhub-username/backend:latest .
-        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-        docker push your-dockerhub-username/backend:latest
-
-    - name: Deploy to Render (Optional)
-      run: |
-        curl -X POST https://api.render.com/deploy/srv-xxxxx?key=${{ secrets.RENDER_DEPLOY_KEY }}
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          railway up --service backend
